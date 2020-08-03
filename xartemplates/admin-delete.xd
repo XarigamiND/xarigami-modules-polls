@@ -1,0 +1,28 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Delete Poll</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <h3>
+              #$polltitle#
+            </h3>
+            <form method="post" action="&xar-modurl-polls-admin-delete;">
+              <input type="hidden" name="authid" value="#$authid#"/>
+              <input type="hidden" name="pid" value="#$pid#"/>
+              <input type="hidden" name="confirm" value="#$confirm#"/>
+              <div style="clear: both; padding-top: 10px;">
+                <xar:mlstring>Delete this Poll?</xar:mlstring>
+              </div>
+              <div class="xar-form-footer">
+                <input type="submit" value="#xarML('Delete Poll')#"/> &#160;&#160;
+                <input type="button" value="#xarML('Cancel')#" onclick="location.href='&xar-modurl-polls-admin-list;'"/>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>

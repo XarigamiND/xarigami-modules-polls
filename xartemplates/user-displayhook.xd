@@ -1,0 +1,53 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-standard-box-padding">
+   <xar:if condition="!$canvote">
+        <div class="xar-standard-box-padding">
+            <xar:mlstring>You are not allowed to vote on poll </xar:mlstring>
+            #$title#
+        </div>
+    <xar:else />
+        <form method="post" action="&xar-modurl-polls-user-vote;" enctype="application/x-www-form-urlencoded">
+            <fieldset>
+                <legend>
+                    #$title#
+                </legend>
+                <input type="hidden" name="authid" value="#$authid#" />
+                <input type="hidden" name="pid" value="#$pid#" />
+                <input type="hidden" name="returnurl" value="#$returnurl#" />
+                <input type="hidden" name="callingmod" value="#$callingmod#" />
+                <xar:if condition="$private">
+                    <div class="xar-standard-box-padding">
+                        <xar:mlstring>This Poll is currently private.  Results will not be shown.</xar:mlstring>
+                    </div>
+                </xar:if>
+                <xar:if condition="!empty($pollintro)">
+                <div class="xar-form-input-wrapper">
+                    #$pollintro#
+                </div>
+                </xar:if>
+                <xar:for start="$i = 1" test="$i le count($options)" iter="$i++">
+                    <div class="xar-form-input-wrapper">
+                        <label for="polloption_#$i#" class="xar-form-label">
+                            #$options[$i]['name']#
+                        </label>
+                        <xar:if condition="$type eq 'single'">
+                            <input type="radio" name="option" id="polloption_#$i#" value="#$i#" />
+                        <xar:elseif condition="$type eq 'multi'" />
+                            <input type="checkbox" name="option_#$i#" id="polloption_#$i#" value="#$i#" />
+                        </xar:if>
+                    </div>
+                    </xar:for>
+            </fieldset>
+            <div class="xar-form-input-wrapper-after">
+                <input type="submit" value="#xarML('Vote')#" />
+            </div>
+            <div class="xar-form-input-wrapper-after">
+                <xar:if condition="$previewresults">
+                    <a href="#$resultsurl#">
+                        <xar:mlstring>View Results</xar:mlstring>
+                    </a>
+                </xar:if>
+            </div>
+        </form>
+    </xar:if>
+</div>

@@ -1,0 +1,64 @@
+<xar:comment>this template it's not used</xar:comment>
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body ">
+        <h1> #$listlabel#</h1>
+        <div class="xar-mod-content">
+            <xar:if condition="!isset($polls)">
+                #$nopollslabel#
+            <xar:else/>
+                <table style="xar-items">
+                    <tr>
+                        <th>
+                            #$titlelistlabel#
+                        </th>
+                        <th>
+                            #$actionslistlabel#
+                        </th>
+                    </tr>
+                    <xar:if condition="count($polls) == 0">
+                        <tr>
+                            <td colspan="2" style="text-align: center;">
+                                #$nopollslabel#
+                            </td>
+                        </tr>
+                    <xar:else />
+                     <xar:set name="rowclass">'xar-norm'</xar:set>
+                        <xar:loop name="$polls">
+                            <tr class="#$rowclass#">
+                                <td>
+                                    #$loop:item['title']# (#$loop:item['type']#  -
+                                        <xar:if condition="$loop:item['open']">
+                                            #$loop:item['openlabel']#
+                                        <xar:else />
+                                            #$loop:item['closedlabel']#
+                                        </xar:if>)
+                                        #$loop:item['votes']# #$loop:item['voteslabel']#
+                                </td>
+                                <td style="text-align: center;">
+                                    [
+                                    <a href="#$loop:item['action_results']#">
+                                        #$loop:item['action_resultslabel']#
+                                    </a>
+                                    <xar:if condition="!$loop:item['voted'] and $loop:item['open']">
+                                    |
+                                    <a href="#$loop:item['action_vote']#">
+                                        #$loop:item['action_votelabel']#
+                                    </a>
+                                    </xar:if>
+                                    ]
+                                </td>
+                            </tr>
+                              <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
+                        </xar:loop>
+                    </xar:if>
+                </table>
+            </xar:if>
+        </div>
+    </div>
+</div>

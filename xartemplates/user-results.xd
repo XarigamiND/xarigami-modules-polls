@@ -1,0 +1,98 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:style module="polls" file="default" scope="module" />
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="user-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body xar-polls-result">
+        <div class="xar-mod-content">
+            <xar:if condition="xarModIsHooked('categories','polls')">
+                <xar:template file="catnavigation"/>
+            </xar:if>
+            <h2>
+                #xarVarPrepForDisplay($title)#
+            </h2>
+            <xar:if condition="!empty($pollintro)">
+            <div class="xar-form-input-wrapper">
+             #xarVarPrepHTMLDisplay($pollintro)#
+            </div>
+            </xar:if>
+            <xar:comment>Create an 'introduction' DD text area to have it displayed at the top of the poll result.</xar:comment>
+            <xar:if condition="!empty($dynamicdata.introduction)">#$dynamicdata.introduction#</xar:if>
+
+            <div class="xar-center xar-standard-box-padding">
+                <xar:if condition="$private">
+                    <div>
+                        <xar:mlstring>This Poll is currently private.  Please check again soon for the results.</xar:mlstring>
+                    </div>
+                <xar:else />
+
+                   <table>
+                    <xar:set name="rowclass">'xar-norm'</xar:set>
+                    <xar:loop name="$options">
+                            <tr class="#$rowclass#">
+                                <td class="xar-align-left xar-valign-middle">
+                                    <strong>#$loop:item['name']#</strong>
+                                    [#$loop:item['percentage']#%
+                                    <xar:if condition="$showtotalvotes eq 1">
+                                        &nbsp;(#$loop:item['votes']#)
+                                    </xar:if>]<br />
+                                    <xar:if condition="$imggraph eq 1">
+                                        <xar:if condition="$loop:item['barwidth'] le 1">
+                                            <img src="#xarTplGetImage('bar.png','polls')#" class="xar-polls-image-bar" style="width: 1px;" alt="vote bar" />
+                                        <xar:else />
+                                            <img src="#xarTplGetImage('bar.png', 'polls')#" class="xar-polls-image-bar" style="width: #$loop:item['barwidth']#%" alt="vote bar" />
+                                        </xar:if>
+                                    <xar:else/>
+                                        <div class="xar-alt xar-polls-css-bar" style="width: #$loop:item.barwidth#%;">&nbsp;</div>
+                                    </xar:if>
+                                </td>
+                            </tr>
+                        <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
+                        </xar:loop>
+                    </table>
+                </xar:if>
+            </div>
+
+            <div class="xar-standard-box-padding xar-align-center">
+                <xar:if condition="$showtotalvotes eq 1">
+                    <strong>
+                        <xar:ml>
+                            <xar:mlstring>Total votes: #(1)</xar:mlstring>
+                            <xar:mlvar>#$totalvotes#</xar:mlvar>
+                        </xar:ml>
+                    </strong>
+                </xar:if>
+            </div>
+
+            <div class="xar-standard-box-padding xar-align-center">
+                <xar:if condition="$open eq 1 and $state eq 'open'">
+                    <p>
+                        <xar:ml>
+                            <xar:mlstring>We allow just one vote #(1)</xar:mlstring>
+                            <xar:mlvar>#$votelimit#</xar:mlvar>
+                        </xar:ml>
+                    </p>
+                    <xar:if condition="$canvote">
+                        <a href="#$voteurl#">
+                            <xar:mlstring>Vote</xar:mlstring>
+                        </a>
+                        |
+                    </xar:if>
+                </xar:if>
+                <a href="#$listurl#">
+                    <xar:mlstring>Main List</xar:mlstring>
+                </a>
+            </div>
+
+            <xar:comment>Create a 'footer' DD text area to have it displayed underneath the poll result.</xar:comment>
+            <xar:if condition="!empty($dynamicdata.footer)">#$dynamicdata.footer#</xar:if>
+        </div>
+        <div class="xar-standard-box-padding xar-align-center">
+        #$hookoutput#
+        </div>
+        <xar:comment><xar:set name="dummy">var_dump($hooks)</xar:set></xar:comment>
+    </div>
+</div>

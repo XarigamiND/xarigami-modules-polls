@@ -1,0 +1,37 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Reset Poll</xar:mlstring></h1>
+        <div class="xar-mod-content">
+
+            <form method="post" action="#xarModURL('polls','admin','reset')#">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Reset poll votes</xar:mlstring>
+                    </legend>
+                    <input type="hidden" name="authid" value="#$authid#"/>
+                    <input type="hidden" name="pid" value="#$pid#"/>
+                    <input type="hidden" name="confirm" value="#$confirm#"/>
+                    <div class="xar-form-input-wrapper">
+                        <xar:mlstring>Reset votes for poll: </xar:mlstring>
+                        #$polltitle#
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        (
+                            <xar:mlstring>all votes will be deleted</xar:mlstring>
+                        )
+                    </div>
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="submit" value="#$buttonlabel#"/>&nbsp;&nbsp;
+                    <input type="button" value="#xarML('Cancel Reset')#" onclick="location.href='&xar-modurl-polls-admin-list;'"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

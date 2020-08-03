@@ -1,0 +1,101 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-include-javascript module="base" filename="formcheck.js" position="head" />
+<script type="text/javascript">
+<!--
+    // Enter name of mandatory fields
+    var fieldRequired = Array("title");
+    // Enter field description to appear in the dialog box
+    var fieldDescription = Array("title");
+//-->
+</script>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Create New Poll</xar:mlstring></h1>
+        <div class="xar-mod-content">
+
+            <form name="post" id="post" action="&xar-modurl-polls-admin-create;" method="post" onsubmit="return xar_base_formCheck(this, fieldRequired, fieldDescription);" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Set main settings</xar:mlstring>
+                    </legend>
+                    <input type="hidden" name="authid" value="#$authid#"/>
+                    <div class="xar-form-input-wrapper">
+                        <label for="title" title="#xarML('The name of the new poll')#" class="xar-form-label">
+                            <xar:mlstring>Poll title</xar:mlstring>
+                        </label>
+                        <input type="text" name="title" id="title" size="50" maxlength="100" value=""/>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="pollintro" title="#xarML('Optional poll introductory text')#" class="xar-form-label">
+                            <xar:mlstring>Introduction (optional)</xar:mlstring>
+                        </label>
+                        <xar:if condition="xarModIsAvailable('tinymce')">
+                            <xar:data-input type="xartinymce" name="pollintro" id="pollintro" value="" class="default" />
+                        <xar:else />
+                            <xar:data-input type="textarea_small" name="pollintro" id="pollintro1" value="" />
+                        </xar:if>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="polltype" title="#xarML('The type of the new poll')#" class="xar-form-label">
+                            <xar:mlstring>Poll type</xar:mlstring>
+                        </label>
+                        <input type="radio" id="polltype" name="polltype" value="single" checked="checked"/>
+                        &nbsp;
+                        <xar:mlstring>Single Choice</xar:mlstring>
+                        <input type="radio" id="polltype" name="polltype" value="multi"/>
+                        &nbsp;
+                        <xar:mlstring>Multiple Choice</xar:mlstring>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="private" title="#xarML('who can view the new poll')#" class="xar-form-label">
+                            <xar:mlstring>Private</xar:mlstring>
+                        </label>
+                        <input type="checkbox" name="private" id="private" value="1" />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="start_date_input" title="#xarML('Poll active from')#" class="xar-form-label">
+                            <xar:mlstring>Start date</xar:mlstring>
+                        </label>
+                        <xar:data-input id="start_date" type="calendar" name="start_date" value="$start_date" validation="date" />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="end_date_input" title="#xarML('Poll not active from')#" class="xar-form-label">
+                            <xar:mlstring>End date</xar:mlstring>
+                        </label>
+                        <xar:data-input id="end_date" type="calendar" name="end_date" value="$end_date" validation="date" />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Please enter each available option into a single field</xar:mlstring>
+                    </legend>
+                    <xar:for start="$i = 1" test="$i le $optcount" iter="$i++">
+                        <div class="xar-form-input-wrapper">
+                            <label for="option_#$i#" class="xar-form-label">
+                                <xar:mlstring>Option</xar:mlstring>
+                                #$i#
+                            </label>
+                            <input type="text" id="option_#$i#" name="option_#$i#" value="" size="50" maxlength="50"/>
+                        </div>
+                    </xar:for>
+                </fieldset>
+                <xar:if condition="!empty($hooks)">
+                    <fieldset>
+                        <legend>
+                            <xar:mlstring>Configure hooks</xar:mlstring>
+                        </legend>
+                        #$hooks#
+                    </fieldset>
+                </xar:if>
+                <div class="xar-form-input-wrapper-after">
+                    <input type="submit" value="#xarML('Create Poll')#" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

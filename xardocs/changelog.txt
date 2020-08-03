@@ -1,0 +1,32 @@
+1.6.1 2skies.com 19 May 2012
+- Fix return by reference issues missed last time
+- fix the old code left for 'polls_column'
+- add the intro field in the install/init function not just upgrade
+
+1.6.0 xarigami version
+- fix for php 5
+- remove all xarError* and replace with new exceptions
+- remove return by issues
+- try and fix the upgrade problems intoduced in xaraya versions
+
+
+1.0 24th March 2002
+   - Initial version
+
+1.5.0 30 sept 2005
+revision of instance and privileges
+
+*************ATTENTION***********************
+
+if you have set permissions on single polls or type of polls
+this can cause something wrong!
+
+*********************************************
+
+added start/end date for polls (default time()/0 -> no time limit)
+a lot of cleaning and small bugs fixing
+removing inline styles
+standard classes used
+header
+.....
+

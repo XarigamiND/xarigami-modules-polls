@@ -1,0 +1,83 @@
+<xar:comment> this template it's not used from version 1.5.0 </xar:comment>
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Modify Poll Options</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <h2>
+                #$polltitle#
+            </h2>
+            <div>#$pollintro#</div>
+            <table class="xar-fullwidth">
+                <tr>
+                    <th class="xar-align-center">
+                        <xar:mlstring>Options</xar:mlstring>
+                    </th>
+                    <th class="xar-align-center">
+                        <xar:mlstring>Order</xar:mlstring>
+                    </th>
+                    <th class="xar-align-center">
+                        <xar:mlstring>Actions</xar:mlstring>
+                    </th>
+                </tr>
+                <xar:loop name="$options">
+                <tr>
+                    <td>
+                        #$loop:item['name']# (#$loop:item['votes']#
+                        <xar:mlstring>votes</xar:mlstring>
+                        )
+                    </td>
+                    <td class="xar-align-center">
+                        <xar:if condition="isset($loop:item['down'])">
+                            <a href="#$loop:item['down']#" title="#$downlabel#" >
+                                <img src="modules/polls/xarimages/downarrow.gif" style="border: 0px;" alt="#$downlabel#" />
+                            </a>
+                        <xar:else />
+                            <img src="modules/polls/xarimages/noarrow.gif" style="border: 0px;" alt="" />
+                        </xar:if>
+                        <xar:if condition="isset($loop:item['up'])">
+                            <a href="#$loop:item['up']#" title="#$uplabel#">
+                                <img src="modules/polls/xarimages/uparrow.gif" style="border: 0px;" alt="#$uplabel#" />
+                            </a>
+                        <xar:else />
+                            <img src="modules/polls/xarimages/noarrow.gif" style="border: 0px;" alt="" />
+                        </xar:if>
+                    </td>
+                    <td class="xar-align-center">
+                        <xar:if condition="isset($loop:item['modify'])">
+                            [
+                            <a href="#$loop:item['modify']#">
+                                <xar:mlstring>Modify</xar:mlstring>
+                            </a>
+                            |
+                        </xar:if>
+                        <xar:if condition="isset($loop:item['delete'])">
+                            <a href="#$loop:item['delete']#">
+                                <xar:mlstring>Delete</xar:mlstring>
+                            </a>
+                        </xar:if>
+                        ]
+                    </td>
+                </tr>
+            </xar:loop>
+            </table>
+            <div class="xar-form-footer">
+                <span>
+                    <a href="#$backurl#">
+                        <xar:mlstring>Back to the main list</xar:mlstring>
+                    </a>&nbsp;&nbsp;&nbsp;
+                </span>
+                <span>
+                    <a href="#$newurl#">
+                        <xar:mlstring>New option</xar:mlstring>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
