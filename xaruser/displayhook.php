@@ -60,7 +60,7 @@ function polls_user_displayhook($args)
         $data['returnurl'] = xarServerGetCurrentURL();
     }
 
-    if ((xarModAPIFunc('polls', 'user', 'usercanvote', array('pid' => $pid)))) {
+    if (xarModAPIFunc('polls', 'user', 'usercanvote', array('pid' => $pid))) {
         if (xarSecurityCheck('VotePolls',0,'Polls',"$poll[title]:$poll[type]")) {
             $data['canvote'] = 1;
             $data['type'] = $poll['type'];
