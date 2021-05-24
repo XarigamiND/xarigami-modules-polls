@@ -37,7 +37,7 @@ function polls_init()
         'xar_start_date'=>array('type'=>'integer','size'=>'large','null'=>FALSE,'default'=>time()),
         'xar_end_date'=>array('type'=>'integer','size'=>'large','null'=>FALSE,'default'=>'0'),
         'xar_reset'=>array('type'=>'integer','size'=>'large','null'=>FALSE,'default'=>'0'),
-        'xar_pollintro'=>array('type'=>'text','null'=>FALSE,'default'=>'')
+        'xar_pollintro'=>array('type'=>'text','null'=>FALSE)
     );
 
     $sql = xarDBCreateTable($pollstable,$fields);
