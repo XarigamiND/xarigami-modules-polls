@@ -30,6 +30,10 @@ function polls_adminapi_update($args)
         $private = 0;
     }
 
+    if (!isset($end_date) || !is_numeric($end_date)) {
+        $end_date = 0;
+    }
+
     // Get poll information
     $poll = xarModAPIFunc('polls', 'user', 'get', array('pid' => $pid));
 
